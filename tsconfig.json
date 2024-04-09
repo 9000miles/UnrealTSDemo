@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "Node16",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "rootDir": "./TypeScript",
+    "outDir": "Content/JavaScript/Scripts",
+    "typeRoots": [
+      "./Typing",
+      "Plugins/Puerts/Typing",
+      "./node_modules/@types"
+    ]
+  },
+  "include": [
+    "TypeScript/**/*"
+  ],
+  "exclude": [
+    "**/*.d.ts"
+  ]
+}

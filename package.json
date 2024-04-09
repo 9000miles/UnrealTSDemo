@@ -1,0 +1,30 @@
+{
+  "name": "tsproj",
+  "version": "1.0.0",
+  "description": "ts project",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "postbuild": "node Content/JavaScript/Scripts/Tools.js 555",
+    "Package_Win64": "node Tools/Scripts/PackageProject.js -platform=Win64",
+    "Package_HTML5": "node Tools/Scripts/PackageProject.js -platform=HTML5",
+    "DeleteCompileCache": "node Tools/Scripts/DeleteCompileCache.js"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.5",
+    "@types/ws": "^8.5.10",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@types/node": "^18.19.5",
+    "fs": "^0.0.1-security",
+    "guid-typescript": "^1.0.9",
+    "path": "^0.12.7",
+    "reflect-metadata": "^0.1.13",
+    "regedit": "^5.1.2",
+    "simple-git": "^3.19.0",
+    "websocket": "^1.0.34",
+    "winreg": "^1.2.1",
+    "ws": "^8.16.0",
+    "typescript": "5.3.3"
+  }
+}
