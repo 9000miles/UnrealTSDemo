@@ -1,0 +1,4 @@
+[submodule "Plugins/PuertsSlate"]
+	path = Plugins/PuertsSlate
+	url = https://codeup.aliyun.com/6078cd0261a945067837c462/Shared/Plugins/PuertsSlate.git
+	branch = master
