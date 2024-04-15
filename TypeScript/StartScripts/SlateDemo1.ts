@@ -1,4 +1,4 @@
-import {SButton, STextBlock, SWidgetBuilder, TSharedPtr} from "cpp"
+import {SButton, SButton, STextBlock, SWidgetBuilder, TSharedPtr} from "cpp"
 import {SNew} from "puerts"
 import * as cpp from "cpp";
 import * as UE from "ue";
@@ -23,13 +23,15 @@ const stbPtr: TSharedPtr<STextBlock> = STextBlock.SNew({
 const text = stbPtr.Get().GetText()
 console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
 
-const btn = SButton.SNew( {
-        Text: "my name is button",
-        OnClicked: () => {
-            console.log("button clicked !!!")
+const btn = SButton.SNew({
+    Text: "my name is button",
+    OnClicked: () => {
+        console.log("button clicked !!!")
 
-            GameInstance.SetTestWidget(stbPtr)
-        }
+        GameInstance.SetTestWidget(stbPtr)
+    }
 })
+
+const args: SButton.Arguments = new SButton.Arguments()
 
 GameInstance.SetTestWidget(btn)
