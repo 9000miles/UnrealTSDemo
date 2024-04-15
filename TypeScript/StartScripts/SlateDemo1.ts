@@ -1,21 +1,35 @@
-import {Vector2D, ETextJustify} from 'ue';
-import {SWindow, STextBlock} from 'cpp';
+import {SButton, STextBlock, SWidgetBuilder, TSharedPtr} from "cpp"
+import {SNew} from "puerts"
+import * as cpp from "cpp";
+import * as UE from "ue";
+import * as puerts from "puerts";
 
-// 创建一个新的窗口
-let mainWindow = new SWindow();
-mainWindow.Title = "My TypeScript Window";
-mainWindow.ClientSize = new Vector2D(640, 480);
+// const args: STextBlock.Arguments = {
+//     Text: "AAA"
+// }
+// const stbPtr0: TSharedPtr<STextBlock> = SNew(STextBlock, {
+//     Text: "AAA"
+// })
+// const text0 = stbPtr0.Get().GetText()
+// console.log(text0)
 
-const args1: STextBlock.Arguments = {}
-args1.Text = ""
-const args = new STextBlock.Arguments()
-args.Text = "Hello from TypeScript!";
-args.Justification = ETextJustify.Center; // 假设ETextJustify已正确绑定
-// 在窗口中添加一个文本块
-let greetingText = new STextBlock(args);
 
-// 将文本块添加到窗口的内容区域
-mainWindow.SetContent(greetingText);
+const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("GameInstance") as UE.TestPuertsSlateGameInstance
 
-// 显示窗口
-mainWindow.ShowWindow();
+const stbPtr: TSharedPtr<STextBlock> = STextBlock.SNew({
+    Text: "AAA"
+})
+
+const text = stbPtr.Get().GetText()
+console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
+
+const btn = SButton.SNew( {
+        Text: "my name is button",
+        OnClicked: () => {
+            console.log("button clicked !!!")
+
+            GameInstance.SetTestWidget(stbPtr)
+        }
+})
+
+GameInstance.SetTestWidget(btn)
