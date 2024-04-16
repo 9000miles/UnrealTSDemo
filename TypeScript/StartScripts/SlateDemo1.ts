@@ -1,4 +1,4 @@
-import {SButton, SButton, STextBlock, SWidgetBuilder, TSharedPtr} from "cpp"
+import {SButton, SButton, STextBlock, SWidgetBuilder, TAttribute, TSharedPtr} from "cpp"
 import {SNew} from "puerts"
 import * as cpp from "cpp";
 import * as UE from "ue";
@@ -28,10 +28,11 @@ const btn = SButton.SNew({
     OnClicked: () => {
         console.log("button clicked !!!")
 
+        // stbPtr.Get().SetText("new text by Extension")
+        stbPtr.Get().SetText(new TAttribute<string>("new text by Extension"))
         GameInstance.SetTestWidget(stbPtr)
     }
 })
 
-const args: SButton.Arguments = new SButton.Arguments()
 
 GameInstance.SetTestWidget(btn)
