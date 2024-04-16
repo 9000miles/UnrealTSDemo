@@ -1,4 +1,4 @@
-import {SButton, SButton, STextBlock, SWidgetBuilder, TAttribute, TSharedPtr} from "cpp"
+import {SButton, STextBlock, TAttribute, TSharedPtr} from "cpp"
 import {SNew} from "puerts"
 import * as cpp from "cpp";
 import * as UE from "ue";
