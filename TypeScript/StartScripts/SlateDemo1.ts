@@ -28,8 +28,12 @@ const btn = SButton.SNew({
     OnClicked: () => {
         console.log("button clicked !!!")
 
+        const text = stbPtr.Get().GetText()
+        console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
+
+        //扩展函数self传递有问题
         // stbPtr.Get().SetText("new text by Extension")
-        stbPtr.Get().SetText(new TAttribute<string>("new text by Extension"))
+        // stbPtr.Get().SetText(new TAttribute<string>("new text by Extension"))
         GameInstance.SetTestWidget(stbPtr)
     }
 })
