@@ -1,5 +1,5 @@
 import {SButton, STextBlock, TAttribute, TSharedPtr} from "cpp"
-import {SNew} from "puerts"
+import {$ref, $unref} from "puerts"
 import * as cpp from "cpp";
 import * as UE from "ue";
 import * as puerts from "puerts";
@@ -19,14 +19,17 @@ const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("Game
 const stbPtr: TSharedPtr<STextBlock> = STextBlock.SNew({
         Text: "AAA"
     },
-    __filename
-)
+    __filename)
 
+let sasPtr = $ref(STextBlock.MakeShared())
 // let sasPtr = new TSharedPtr<STextBlock>()
-//
-// STextBlock.SAssignNew(sasPtr, {Text: "this is SAssignNew STextBlock"}, __filename)
-// const a = sasPtr.Get().GetText()
-// console.log(a)
+STextBlock.SAssignNew(sasPtr, {
+        Text: "this is SAssignNew STextBlock"
+    },
+    __filename)
+const sfwe = $unref(sasPtr)
+const a = sfwe.Get().GetText()
+console.log(a)
 
 
 const text = stbPtr.Get().GetText()
@@ -43,7 +46,7 @@ const btn = SButton.SNew({
         //扩展函数self传递有问题
         // stbPtr.Get().SetText("new text by Extension")
         // stbPtr.Get().SetText(new TAttribute<string>("new text by Extension"))
-        GameInstance.SetTestWidget(stbPtr)
+        GameInstance.SetTestWidget(sfwe)
     }
 })
 
