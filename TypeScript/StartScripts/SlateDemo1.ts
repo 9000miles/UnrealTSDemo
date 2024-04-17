@@ -17,8 +17,17 @@ import * as puerts from "puerts";
 const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("GameInstance") as UE.TestPuertsSlateGameInstance
 
 const stbPtr: TSharedPtr<STextBlock> = STextBlock.SNew({
-    Text: "AAA"
-})
+        Text: "AAA"
+    },
+    __filename
+)
+
+// let sasPtr = new TSharedPtr<STextBlock>()
+//
+// STextBlock.SAssignNew(sasPtr, {Text: "this is SAssignNew STextBlock"}, __filename)
+// const a = sasPtr.Get().GetText()
+// console.log(a)
+
 
 const text = stbPtr.Get().GetText()
 console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
