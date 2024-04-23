@@ -17,7 +17,7 @@ import * as puerts from "puerts";
 const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("GameInstance") as UE.TestPuertsSlateGameInstance
 
 const stbPtr: TSharedPtr<STextBlock> = STextBlock.SNew({
-        Text: "AAA"
+        Text: "AAA",
     },
     __filename)
 
@@ -36,19 +36,20 @@ const text = stbPtr.Get().GetText()
 console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
 
 const btn = SButton.SNew({
-    Text: "my name is button",
-    OnClicked: () => {
-        console.log("button clicked !!!")
+        Text: "my name is button",
+        OnClicked: () => {
+            console.log("button clicked !!!")
 
-        const text = stbPtr.Get().GetText()
-        console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
+            const text = stbPtr.Get().GetText()
+            console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
 
-        //扩展函数self传递有问题
-        // stbPtr.Get().SetText("new text by Extension")
-        // stbPtr.Get().SetText(new TAttribute<string>("new text by Extension"))
-        GameInstance.SetTestWidget(sfwe)
-    }
-})
+            //扩展函数self传递有问题
+            // stbPtr.Get().SetText("new text by Extension")
+            // stbPtr.Get().SetText(new TAttribute<string>("new text by Extension"))
+            GameInstance.SetTestWidget(sfwe)
+        },
+    },
+    __filename)
 
 
 GameInstance.SetTestWidget(btn)
