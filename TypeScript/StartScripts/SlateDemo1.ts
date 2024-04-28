@@ -3,6 +3,7 @@ import {$ref, $unref} from "puerts"
 import * as cpp from "cpp";
 import * as UE from "ue";
 import * as puerts from "puerts";
+import {Color} from "ue";
 
 // const args: STextBlock.Arguments = {
 //     Text: "AAA"
@@ -16,11 +17,24 @@ import * as puerts from "puerts";
 
 const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("GameInstance") as UE.TestPuertsSlateGameInstance
 
+const TestType = 0;
+
+if (TestType == 0) {
+
+} else if (TestType == 1) {
+
+}
+
+
 const stbPtr: TSharedPtr<STextBlock> = STextBlock.SNew({
-        Text: "AAA",
+        Text: () => {
+            return "sss"
+        },
+        // Text: "AAA",
     },
     __filename)
-
+const af = "#09097e";
+const asf = "rgba(41,41,133,0.69)";
 let sasPtr = $ref(STextBlock.MakeShared())
 // let sasPtr = new TSharedPtr<STextBlock>()
 STextBlock.SAssignNew(sasPtr, {
@@ -30,7 +44,6 @@ STextBlock.SAssignNew(sasPtr, {
 const sfwe = $unref(sasPtr)
 const a = sfwe.Get().GetText()
 console.log(a)
-
 
 const text = stbPtr.Get().GetText()
 console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
