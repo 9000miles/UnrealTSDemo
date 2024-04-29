@@ -27,3 +27,21 @@ verticalBox.AddChildToVerticalBox(myButton);
 // 假设存在一个宿主窗口或面板，将垂直布局添加到其中
 // let mainWindow = ...; // 主窗口或面板的引用
 // mainWindow.ContentSlot.Add(verticalBox);
+
+
+
+const btn = SButton.SNew({
+        Text: "my name is button",
+        OnClicked: () => {
+            console.log("button clicked !!!")
+
+            const text = stbPtr.Get().GetText()
+            console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
+
+            //扩展函数self传递有问题
+            // stbPtr.Get().SetText("new text by Extension")
+            // stbPtr.Get().SetText(new TAttribute<string>("new text by Extension"))
+            GameInstance.SetTestWidget(sfwe)
+        },
+    },
+    __filename)
