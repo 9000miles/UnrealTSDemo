@@ -44,7 +44,26 @@ function Func2() {
     }
 
     function getColor() {
-        return "rgba(128,19,115,0.89)"
+        const r = UE.KismetMathLibrary.RandomInteger(255)
+        const g = UE.KismetMathLibrary.RandomInteger(255)
+        const b = UE.KismetMathLibrary.RandomInteger(255)
+        return `rgba(${r},${g},${b},255)`
+    }
+
+    function getColor1() {
+        const r = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        const g = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        const b = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        // return {R: r, G: g, B: b, A: 255}
+        return new UE.LinearColor(0.11, 0.1, 0.2, 1)
+        return new UE.LinearColor(r, g, b, 1)
+    }
+
+    function getColor2() {
+        const r = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        const g = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        const b = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        return {R: r, G: g, B: b, A: 1}
     }
 
     function getText() {
@@ -58,7 +77,7 @@ function Func2() {
             Text: getText,
             // Text: aa.classFunc,
             // Text: () => null,
-            ColorAndOpacity: getColor
+            ColorAndOpacity: getColor2
         },
         __filename)
     GameInstance.SetTestWidget(widget)
