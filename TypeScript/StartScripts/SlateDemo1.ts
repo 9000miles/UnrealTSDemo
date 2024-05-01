@@ -83,6 +83,18 @@ function Func2() {
     GameInstance.SetTestWidget(widget)
 }
 
+function Func4() {
+    function setTextFunc() {
+        return UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+    }
+    
+    const widget: TSharedPtr<STextBlock> = STextBlock.SNew({}, __filename)
+    // widget.Get().SetText("sss");
+    widget.Get().SetText(() => "sss");
+    widget.Get().SetText(setTextFunc);
+    GameInstance.SetTestWidget(widget)
+}
+
 function Func3() {
     let widgetRef = $ref(STextBlock.MakeShared())
     STextBlock.SAssignNew(widgetRef, {
@@ -97,7 +109,7 @@ function Func3() {
 /**
  * ================= 测试 =================
  **/
-Func2()
+Func4()
 
 
 
