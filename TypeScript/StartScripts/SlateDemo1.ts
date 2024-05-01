@@ -26,7 +26,7 @@ function Func1_1() {
             Text: () => {
                 return "ss"
             },
-            ColorAndOpacity: "rgba(93,197,19,0.92)"
+            ColorAndOpacity: "rgb(185,19,197)"
         },
         __filename)
     GameInstance.SetTestWidget(widget)
@@ -109,7 +109,7 @@ function Func3() {
 /**
  * ================= 测试 =================
  **/
-Func4()
+Func1_1()
 
 
 
