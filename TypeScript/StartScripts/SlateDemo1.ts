@@ -31,6 +31,9 @@ function Func1_1() {
         __filename)
     GameInstance.SetTestWidget(widget)
 
+    widget.Get().SetText("Call SetText after creation")
+    widget.Get().SetText(() => "Call SetText after creation")
+
 
     const text = widget.Get().GetText()
     console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
@@ -87,7 +90,7 @@ function Func4() {
     function setTextFunc() {
         return UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
     }
-    
+
     const widget: TSharedPtr<STextBlock> = STextBlock.SNew({}, __filename)
     // widget.Get().SetText("sss");
     widget.Get().SetText(() => "sss");
