@@ -1,47 +1,142 @@
-import {Vector2D, ETextJustify} from 'ue';
-import {SButton, STextBlock} from 'cpp';
-
-// 创建一个按钮
-let myButton = new SButton({
-    Text: "Click Me"
-});
-
-// 创建一个文本块用于显示消息
-
-const args = new STextBlock.Arguments()
-args.Text = "Hello from TypeScript!";
-args.Justification = ETextJustify.Center; // 假设ETextJustify已正确绑定
-// 在窗口中添加一个文本块
-let greetingText = new STextBlock(args);
-
-// 设置按钮的点击事件处理
-myButton.SetOnClicked((sender, args) => {
-    messageText.Text = "Button was clicked!";
-});
-
-// 将文本块和按钮添加到一个垂直框布局中
-let verticalBox = new SVerticalBox();
-verticalBox.AddChildToVerticalBox(messageText);
-verticalBox.AddChildToVerticalBox(myButton);
-
-// 假设存在一个宿主窗口或面板，将垂直布局添加到其中
-// let mainWindow = ...; // 主窗口或面板的引用
-// mainWindow.ContentSlot.Add(verticalBox);
+ import {STextBlock, TSharedPtr} from "cpp"
+import {$ref, $unref} from "puerts"
+import * as cpp from "cpp";
+import * as UE from "ue";
+import * as puerts from "puerts";
 
 
+const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("GameInstance") as UE.TestPuertsSlateGameInstance
 
-const btn = SButton.SNew({
-        Text: "my name is button",
-        OnClicked: () => {
-            console.log("button clicked !!!")
 
-            const text = stbPtr.Get().GetText()
-            console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
-
-            //扩展函数self传递有问题
-            // stbPtr.Get().SetText("new text by Extension")
-            // stbPtr.Get().SetText(new TAttribute<string>("new text by Extension"))
-            GameInstance.SetTestWidget(sfwe)
+function Func1() {
+    const widget: TSharedPtr<STextBlock> = STextBlock.SNew({
+            Text: "Mowoweij",
+            ColorAndOpacity: new UE.LinearColor(0.3, 0.6, 0.5, 1.0),
+            // ColorAndOpacity: "#5dc513",
+            WrapTextAt: 33,
+            AutoWrapText: true,
+            // ShadowOffset: new UE.Vector2D(3, 4),
+            ShadowOffset: new UE.Vector2D(4, 5),
         },
-    },
-    __filename)
+        __filename)
+    GameInstance.SetTestWidget(widget)
+
+
+    const text = widget.Get().GetText()
+    console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
+}
+
+function Func1_1() {
+    const widget: TSharedPtr<STextBlock> = STextBlock.SNew({
+            Text: () => {
+                return "sshhhhhhh"
+            },
+            ColorAndOpacity: () => new UE.LinearColor(0.3, 0.6, 0.5, 1.0),
+            WrapTextAt: () => {
+                console.log("aaa");
+                return 10
+            },
+            AutoWrapText: () => {
+                console.log("bbb");
+                return false
+            },
+            ShadowOffset: () => {
+                return new UE.Vector2D(3, 4)
+                return {X: 23, Y: 33}
+            },
+        },
+        __filename)
+    GameInstance.SetTestWidget(widget)
+
+    widget.Get().SetWrapTextAt(() => {
+        console.log("xxxx")
+        return 23
+    })
+    //
+    // widget.Get().SetAutoWrapText(() => {
+    //     console.log("xxxx")
+    //     return true
+    // })
+
+    // widget.Get().SetText("Call SetText after creation")
+    // widget.Get().SetText(() => "Call SetText after creation")
+
+
+    const text = widget.Get().GetText()
+    console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
+}
+
+function Func2() {
+    class AA {
+        classFunc() {
+            return String(UE.KismetMathLibrary.RandomInteger(60))
+        }
+    }
+
+    function getColor() {
+        const r = UE.KismetMathLibrary.RandomInteger(255)
+        const g = UE.KismetMathLibrary.RandomInteger(255)
+        const b = UE.KismetMathLibrary.RandomInteger(255)
+        return `rgba(${r},${g},${b},255)`
+    }
+
+    function getColor1() {
+        const r = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        const g = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        const b = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        // return {R: r, G: g, B: b, A: 255}
+        return new UE.LinearColor(0.11, 0.1, 0.2, 1)
+        return new UE.LinearColor(r, g, b, 1)
+    }
+
+    function getColor2() {
+        const r = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        const g = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        const b = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        return {R: r, G: g, B: b, A: 1}
+    }
+
+    function getText() {
+        return String(UE.KismetMathLibrary.RandomFloat())
+        return "this is getText"
+    }
+
+    const aa = new AA()
+
+    const widget: TSharedPtr<STextBlock> = STextBlock.SNew({
+            Text: getText,
+            // Text: aa.classFunc,
+            // Text: () => null,
+            ColorAndOpacity: getColor2
+        },
+        __filename)
+    GameInstance.SetTestWidget(widget)
+}
+
+function Func4() {
+    function setTextFunc() {
+        return UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+    }
+
+    const widget: TSharedPtr<STextBlock> = STextBlock.SNew({}, __filename)
+    // widget.Get().SetText("sss");
+    widget.Get().SetText(() => "sss");
+    widget.Get().SetText(setTextFunc);
+    GameInstance.SetTestWidget(widget)
+}
+
+function Func3() {
+    let widgetRef = $ref(STextBlock.MakeShared())
+    STextBlock.SAssignNew(widgetRef, {
+            Text: "this is SAssignNew STextBlock"
+        },
+        __filename)
+    const widgetPtr = $unref(widgetRef)
+    const a = widgetPtr.Get().GetText()
+    console.log(a)
+}
+
+/**
+ * ================= 测试 =================
+ **/
+Func1_1()

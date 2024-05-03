@@ -11,7 +11,12 @@ const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("Game
 function Func1() {
     const widget: TSharedPtr<STextBlock> = STextBlock.SNew({
             Text: "AAA",
-            ColorAndOpacity: "#5dc513"
+            ColorAndOpacity: "#5dc513",
+            // ColorAndOpacity: "#5dc513",
+            WrapTextAt: 33,
+            AutoWrapText: true,
+            // ShadowOffset: new UE.Vector2D(3, 4),
+            ShadowOffset: {X: 6, Y: 9},
         },
         __filename)
     GameInstance.SetTestWidget(widget)
@@ -26,13 +31,35 @@ function Func1_1() {
             Text: () => {
                 return "ss"
             },
-            ColorAndOpacity: "rgb(185,19,197)"
+            ColorAndOpacity: "rgb(185,19,197)",
+            WrapTextAt: () => {
+                console.log("aaa");
+                return 10
+            },
+            AutoWrapText: () => {
+                console.log("bbb");
+                return false
+            },
+            ShadowOffset: () => {
+                return new UE.Vector2D(3, 4)
+                return {X: 23, Y: 33}
+            },
         },
         __filename)
     GameInstance.SetTestWidget(widget)
 
-    widget.Get().SetText("Call SetText after creation")
-    widget.Get().SetText(() => "Call SetText after creation")
+    // widget.Get().SetWrapTextAt(() => {
+    //     console.log("xxxx")
+    //     return 23
+    // })
+    //
+    // widget.Get().SetAutoWrapText(() => {
+    //     console.log("xxxx")
+    //     return true
+    // })
+
+    // widget.Get().SetText("Call SetText after creation")
+    // widget.Get().SetText(() => "Call SetText after creation")
 
 
     const text = widget.Get().GetText()
@@ -113,6 +140,3 @@ function Func3() {
  * ================= 测试 =================
  **/
 Func1_1()
-
-
-
