@@ -1,4 +1,4 @@
- import {STextBlock, TSharedPtr} from "cpp"
+import {STextBlock, TSharedPtr} from "cpp"
 import {$ref, $unref} from "puerts"
 import * as cpp from "cpp";
 import * as UE from "ue";
@@ -42,7 +42,6 @@ function Func1_1() {
             },
             ShadowOffset: () => {
                 return new UE.Vector2D(3, 4)
-                return {X: 23, Y: 33}
             },
         },
         __filename)
@@ -93,7 +92,7 @@ function Func2() {
         const r = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
         const g = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
         const b = UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
-        return {R: r, G: g, B: b, A: 1}
+        return new UE.LinearColor(r, g, b, 1);
     }
 
     function getText() {
