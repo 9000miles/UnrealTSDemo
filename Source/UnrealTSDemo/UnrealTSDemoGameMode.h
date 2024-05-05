@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "PuertsAndSlateGameModeBase.generated.h"
+#include "UnrealTSDemoGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PUERTSANDSLATE_API APuertsAndSlateGameModeBase : public AGameModeBase
+class UNREALTSDEMO_API AUnrealTSDemoGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	

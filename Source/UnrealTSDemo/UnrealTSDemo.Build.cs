@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class PuertsAndSlate : ModuleRules
+public class UnrealTSDemo : ModuleRules
 {
-	public PuertsAndSlate(ReadOnlyTargetRules Target) : base(Target)
+	public UnrealTSDemo(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	

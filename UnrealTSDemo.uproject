@@ -5,7 +5,7 @@
 	"Description": "",
 	"Modules": [
 		{
-			"Name": "PuertsAndSlate",
+			"Name": "UnrealTSDemo",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}

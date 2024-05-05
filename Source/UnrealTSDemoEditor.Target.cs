@@ -3,12 +3,12 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class PuertsAndSlateEditorTarget : TargetRules
+public class UnrealTSDemoEditorTarget : TargetRules
 {
-	public PuertsAndSlateEditorTarget( TargetInfo Target) : base(Target)
+	public UnrealTSDemoEditorTarget( TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "PuertsAndSlate" } );
+		ExtraModuleNames.AddRange( new string[] { "UnrealTSDemo" } );
 	}
 }

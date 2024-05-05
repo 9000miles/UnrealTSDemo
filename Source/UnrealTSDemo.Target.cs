@@ -3,12 +3,12 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class PuertsAndSlateTarget : TargetRules
+public class UnrealTSDemoTarget : TargetRules
 {
-	public PuertsAndSlateTarget( TargetInfo Target) : base(Target)
+	public UnrealTSDemoTarget( TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "PuertsAndSlate" } );
+		ExtraModuleNames.AddRange( new string[] { "UnrealTSDemo" } );
 	}
 }
