@@ -1,7 +1,7 @@
 import * as cpp from "cpp";
 import * as UE from "ue";
 import * as puerts from "puerts";
-import {BaseClass, ChildClass, Script_ChildClass} from "cpp";
+import {$ChildClass, BaseClass, ChildClass} from "cpp";
 
 const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("GameInstance") as UE.TestPuertsSlateGameInstance
 
@@ -47,14 +47,23 @@ class TS_Class2 extends ChildClass {
     }
 }
 
+function CppClass<T extends { new(...args: any[]): {} }>(constructor: T) {
+    return class extends constructor {
+        constructor(...args: any[]) {
+            super(...args);
+            // @ts-ignore
+            this.__bind__(this)
+        }
+    };
+}
 
-class TS_Class3 extends Script_ChildClass {
+@CppClass
+class TS_Class3 extends $ChildClass {
     age: number
     t: tt
 
     constructor() {
         super({});
-        this.Register(this)
         this.age = 456
         this.t = new tt()
     }
