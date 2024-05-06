@@ -118,7 +118,7 @@ function Func4() {
     }
 
     const widget: TSharedPtr<STextBlock> = STextBlock.SNew({}, __filename)
-    // widget.Get().SetText("sss");
+    widget.Get().SetText("sss");
     widget.Get().SetText(() => "sss");
     widget.Get().SetText(setTextFunc);
     GameInstance.SetTestWidget(widget)
@@ -138,4 +138,4 @@ function Func3() {
 /**
  * ================= 测试 =================
  **/
-Func1_1()
+Func4()
