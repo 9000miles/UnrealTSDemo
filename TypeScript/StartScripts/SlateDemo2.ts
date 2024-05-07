@@ -135,7 +135,30 @@ function Func3() {
     console.log(a)
 }
 
+function Func5() {
+    class MyClass {
+        myName: string = "九千里"
+
+        setTextFunc() {
+            return `${this.myName} + ${UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)}`
+            return UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+        }
+
+        show() {
+            const widget: TSharedPtr<STextBlock> = STextBlock.SNew({
+                Text: "this.setTextFunc.bind(this)"
+                // Text: this.setTextFunc.bind(this)
+            }, __filename)
+            // widget.Get().SetText("sss");
+            GameInstance.SetTestWidget(widget)
+        }
+    }
+
+    const mc = new MyClass()
+    mc.show()
+}
+
 /**
  * ================= 测试 =================
  **/
-Func4()
+Func5()
