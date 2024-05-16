@@ -1,8 +1,8 @@
-import {STextBlock, TSharedPtr} from "cpp"
 import {$ref, $unref} from "puerts"
-import * as cpp from "cpp";
+import {STextBlock} from "cpp";
 import * as UE from "ue";
 import * as puerts from "puerts";
+import {TSharedPtr} from "ue";
 
 
 const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("GameInstance") as UE.TestPuertsSlateGameInstance
@@ -19,11 +19,11 @@ function Func1() {
             ShadowOffset: new UE.Vector2D(4, 5),
         },
         __filename)
+    const text = widget.Get().GetText()
+    console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
     GameInstance.SetTestWidget(widget)
 
 
-    const text = widget.Get().GetText()
-    console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
 }
 
 function Func1_1() {
@@ -34,11 +34,11 @@ function Func1_1() {
             ColorAndOpacity: () => new UE.LinearColor(0.3, 0.6, 0.5, 1.0),
             WrapTextAt: () => {
                 console.log("aaa");
-                return 10
+                return 1000
             },
             AutoWrapText: () => {
                 console.log("bbb");
-                return false
+                return true
             },
             ShadowOffset: () => {
                 return new UE.Vector2D(3, 4)
@@ -47,10 +47,10 @@ function Func1_1() {
         __filename)
     GameInstance.SetTestWidget(widget)
 
-    widget.Get().SetWrapTextAt(() => {
-        console.log("xxxx")
-        return 23
-    })
+    // widget.Get().SetWrapTextAt(() => {
+    //     console.log("xxxx")
+    //     return 23
+    // })
     //
     // widget.Get().SetAutoWrapText(() => {
     //     console.log("xxxx")
@@ -58,7 +58,7 @@ function Func1_1() {
     // })
 
     // widget.Get().SetText("Call SetText after creation")
-    // widget.Get().SetText(() => "Call SetText after creation")
+    widget.Get().SetText(() => "Call SetText after creation ffffff")
 
 
     const text = widget.Get().GetText()
@@ -146,10 +146,12 @@ function Func5() {
 
         show() {
             const widget: TSharedPtr<STextBlock> = STextBlock.SNew({
-                Text: "this.setTextFunc.bind(this)"
-                // Text: this.setTextFunc.bind(this)
+                // Text: "this.setTextFunc.bind(this)"
+                Text: this.setTextFunc.bind(this)
             }, __filename)
-            // widget.Get().SetText("sss");
+            const text = widget.Get().GetText();
+            console.log(text)
+            widget.Get().SetText("sss");
             GameInstance.SetTestWidget(widget)
         }
     }
@@ -161,4 +163,4 @@ function Func5() {
 /**
  * ================= 测试 =================
  **/
-Func5()
+Func1_1()
