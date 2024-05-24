@@ -1,19 +1,37 @@
 import {LinearColor} from 'ue';
-import {SButton, SBorder} from 'cpp';
+import {SButton, SCheckBox, STextBlock, SWidget} from 'cpp';
+import * as UE from "ue";
+import {TSharedPtr, TSharedRef} from "ue";
+import * as puerts from "puerts";
+import * as cpp from "cpp";
 
-// 创建一个边框控件作为背景
-let background = new SBorder();
-background.Panels[0].Brush.Color = new LinearColor(0.5, 0.5, 0.5, 1); // 设置背景颜色
 
-// 创建一个按钮，并在点击时改变背景颜色
-let changeColorButton = new SButton();
-changeColorButton.Text = "Change Color";
-changeColorButton.OnClicked.Add((sender, args) => {
-    let randomColor = new LinearColor(Math.random(), Math.random(), Math.random(), 1);
-    background.Panels[0].Brush.Color = randomColor;
-});
+const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("GameInstance") as UE.TestPuertsSlateGameInstance
 
-// 将按钮添加到背景中
-background.ContentSlot.Add(changeColorButton);
+function getContentWidget() {
+    console.log("getContentWidget")
+    return STextBlock.SNew({
+            Text: "Mowoweij",
+            ColorAndOpacity: new UE.LinearColor(0.3, 0.6, 0.5, 1.0),
+            // ColorAndOpacity: "#5dc513",
+            WrapTextAt: 33,
+            AutoWrapText: true,
+            // ShadowOffset: new UE.Vector2D(3, 4),
+            ShadowOffset: new UE.Vector2D(4, 5),
+        },
+        __filename)
+}
 
-// 将背景添加到窗口
+function Func1() {
+    const widget = SCheckBox.SNew({
+            OnGetMenuContent: getContentWidget
+        },
+        __filename)
+    GameInstance.SetTestWidget(widget)
+}
+
+
+/**
+ * ================= 测试 =================
+ **/
+Func1()

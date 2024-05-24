@@ -113,8 +113,8 @@ function Func2() {
 }
 
 function Func4() {
-    function setTextFunc() {
-        return UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0)
+    function setTextFunc(): string {
+        return UE.KismetMathLibrary.RandomFloatInRange(0.0, 1.0).toString()
     }
 
     const widget: TSharedPtr<STextBlock> = STextBlock.SNew({}, __filename)
@@ -133,6 +133,7 @@ function Func3() {
     const widgetPtr = $unref(widgetRef)
     const a = widgetPtr.Get().GetText()
     console.log(a)
+    GameInstance.SetTestWidget(widgetPtr)
 }
 
 function Func5() {
@@ -163,4 +164,4 @@ function Func5() {
 /**
  * ================= 测试 =================
  **/
-Func1_1()
+Func5()
