@@ -22,32 +22,29 @@ function enumerateHFiles(dir: string): string[] {
 }
 
 // 检查文件内容是否包含指定的两个字符串，并尝试提取类的父类名称
-function checkContentAndExtractParentClass(file: string): {
-    hasStrings: boolean,
-    myClass?: string,
-    parentClass?: string
-} {
+function checkContentAndExtractParentClass(file: string) {
     try {
         const content = fs.readFileSync(file, 'utf-8');
         const fileName = path.basename(file, ".h")
-        if (fileName == "SSlider") {
-            console.log("ddddddddddd")
-        }
-        const hasBeginArgs = content.includes('SLATE_BEGIN_ARGS');
-        const hasEndArgs = content.includes('SLATE_END_ARGS');
-        if (hasBeginArgs && hasEndArgs) {
+
+        const beginIndex = content.indexOf('SLATE_BEGIN_ARGS');
+        const endIndex = content.indexOf('SLATE_END_ARGS');
+        if (beginIndex > 0 && endIndex > 0) {
+            const slateArgs = content.substring(beginIndex, endIndex)
+            const snippet = generateCodeSnippet(slateArgs)
+
             // 简单的正则表达式尝试匹配类定义的父类部分，例如"class MyClass : public BaseClass"
             const classRegex = /class\s+(\w+(_API)?)\s+(\w+)\s*:\s*public\s+([^\s{]+)/;
             const match = content.match(classRegex);// || content.match(/struct\s+(\w+)\s*:\s*public\s+(\w+)/);
             if (match) {
                 // 返回匹配到的父类名
-                return {hasStrings: true, myClass: match[3], parentClass: match[4]};
+                return {isSWidget: true, myClass: match[3], parentClass: match[4], snippet: snippet};
             }
         }
-        return {hasStrings: false};
+        return {isSWidget: false};
     } catch (err) {
         console.error(`Error reading ${file}: ${err}`);
-        return {hasStrings: false};
+        return {isSWidget: false};
     }
 }
 
@@ -57,24 +54,54 @@ function processFiles() {
     const template = getTemplateFile();
     hFiles.forEach((file) => {
         const classInfo = checkContentAndExtractParentClass(file)
-        if (classInfo.hasStrings) {
-            const baseName = path.basename(file, '.h');
-            const newFileName = `$${baseName}.cpp`;
-            const newFilePath = path.join(targetDir, newFileName);
+        if (!classInfo.isSWidget) return;
 
-            // 检查目标目录中是否已存在同名文件
-            if (fs.existsSync(newFilePath)) {
-                console.log(`Skip creating because file already exists: ${newFilePath}`);
-            } else {
-                let codeFile = template;
-                codeFile = codeFile.replaceAll("$WidgetClass$", classInfo.myClass);
-                codeFile = codeFile.replaceAll("$SuperClass$", classInfo.parentClass);
-                // 创建一个空的.cpp文件
-                fs.writeFileSync(newFilePath, codeFile);
-                console.log(`Created empty file: ${newFilePath}`);
+        const baseName = path.basename(file, '.h');
+        const newFileName = `$${baseName}.cpp`;
+        const newFilePath = path.join(targetDir, newFileName);
+
+        // 检查目标目录中是否已存在同名文件
+        if (!fs.existsSync(newFilePath)) {
+            console.log(`Skip creating because file already exists: ${newFilePath}`);
+        } else {
+            let codeFile = template;
+
+            if (classInfo.snippet) {
+                codeFile = codeFile.replaceAll("$SET_ARGUMENTS$", classInfo.snippet.args)
+                codeFile = codeFile.replaceAll("$SET_DTS_ARGS$", classInfo.snippet.dts)
             }
+
+            codeFile = codeFile.replaceAll("$WidgetClass$", classInfo.myClass);
+            codeFile = codeFile.replaceAll("$SuperClass$", classInfo.parentClass);
+            // 创建一个空的.cpp文件
+            fs.writeFileSync(newFilePath, codeFile);
+            console.log(`Created file: ${newFilePath}`);
         }
     });
+}
+
+function generateCodeSnippet(inputText) {
+    const slateArgs = inputText.match(/SLATE_\w+\([^)]*\)/g) || [];
+
+    const output1 = slateArgs.map(arg => {
+        const match = arg.match(/SLATE_(\w+)\(([^,]+),\s*([^)]+)\)/);
+        if (match) {
+            const [, type, , name] = match;
+            return `\t\t$SLATE_${type.trim()}(${name.trim()});`;
+        }
+        return '';
+    }).filter(line => line !== '').join('\n');
+
+    const output2 = slateArgs.map(arg => {
+        const match = arg.match(/SLATE_(\w+)\(([^,]+),\s*([^)]+)\)/);
+        if (match) {
+            const [, type, valueType, name] = match;
+            return `\t\tArgs.Add<${valueType.trim()}>("${name.trim()}", DTS::EArgType::SLATE_${type.trim()});`;
+        }
+        return '';
+    }).filter(line => line !== '').join('\n');
+
+    return {args: output1, dts: output2}
 }
 
 //$SET_ARGUMENTS$
