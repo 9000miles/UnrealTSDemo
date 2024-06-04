@@ -62,14 +62,14 @@ function processFiles() {
         const newFilePath = path.join(targetDir, newFileName);
 
         // 检查目标目录中是否已存在同名文件
-        if (!fs.existsSync(newFilePath)) {
+        if (fs.existsSync(newFilePath)) {
             console.log(`Skip creating because file already exists: ${newFilePath}`);
         } else {
             let codeFile = template;
 
             if (classInfo.snippet) {
-                codeFile = codeFile.replaceAll("$SET_ARGUMENTS$", classInfo.snippet.args)
-                codeFile = codeFile.replaceAll("$SET_DTS_ARGS$", classInfo.snippet.dts)
+                codeFile = codeFile.replaceAll("$__ARGUMENTS__$", classInfo.snippet.args)
+                codeFile = codeFile.replaceAll("$__DTS_ARGS__$", classInfo.snippet.dts)
             }
 
             codeFile = codeFile.replaceAll("$WidgetClass$", classInfo.myClass);
