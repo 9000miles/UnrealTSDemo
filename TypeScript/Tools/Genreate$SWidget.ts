@@ -21,7 +21,6 @@ function enumerateHFiles(dir: string): string[] {
     return hFiles;
 }
 
-// 检查文件内容是否包含指定的两个字符串，并尝试提取类的父类名称
 function checkContentAndExtractParentClass(file: string) {
     try {
         const content = fs.readFileSync(file, 'utf-8');
@@ -34,11 +33,13 @@ function checkContentAndExtractParentClass(file: string) {
             const snippet = generateCodeSnippet(slateArgs)
 
             // 简单的正则表达式尝试匹配类定义的父类部分，例如"class MyClass : public BaseClass"
-            const classRegex = /class\s+(\w+(_API)?)\s+(\w+)\s*:\s*public\s+([^\s{]+)/;
+            // const classRegex = /class\s+([\w_]+_API\s+)?(\w+)\s*:\s*public\s+([\w_]+)(?:\s*,\s*public\s+[\w_]+)*/;
+            const classRegex = /class\s+([\w_]+_API\s+)?(\w+)\s*:\s*public\s+([\w_]+)/s;
+            // const classRegex = /class\s+([\w_]+_API\s+)?(\w+)\s*:\s*public\s+([\w_]+)(?:\s*,\s*public\s+[\w_]+)*/s;
             const match = content.match(classRegex);// || content.match(/struct\s+(\w+)\s*:\s*public\s+(\w+)/);
             if (match) {
                 // 返回匹配到的父类名
-                return {isSWidget: true, myClass: match[3], parentClass: match[4], snippet: snippet};
+                return {isSWidget: true, myClass: match[2], parentClass: match[3], snippet: snippet};
             }
         }
         return {isSWidget: false};
