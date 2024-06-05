@@ -87,8 +87,8 @@ function generateCodeSnippet(inputText) {
     const output1 = slateArgs.map(arg => {
         const match = arg.match(/SLATE_(\w+)\(([^,]+),\s*([^)]+)\)/);
         if (match) {
-            const [, type, , name] = match;
-            return `\t\t$SLATE_${type.trim()}(${name.trim()});`;
+            const [, type, argType, name] = match;
+            return `\t\t$SLATE_${type.trim()}(${argType.trim()}, ${name.trim()}, );`;
         }
         return '';
     }).filter(line => line !== '').join('\n');
