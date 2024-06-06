@@ -57,6 +57,20 @@ const ignoreFiles = [
     'SDockingArea',
     'SDockingCross',
     'SDockingSplitter',
+    'SObjectWidget',
+    'SNumericPropertyValue',
+    'SStringPropertyValue',
+    'SBoolPropertyValue',
+    'SEnumPropertyValue',
+    'SObjectTableRow',
+    'SNumericDropDown',
+    'SPropertyViewer',
+    'SRotatorInputBox',
+    'SSegmentedControl',
+    'SFieldIcon',
+    'SlateAttribute',
+    'SCarouselNavigationBar',
+    'SCarouselNavigationButton',
 ]
 
 // 处理文件并创建新文件
