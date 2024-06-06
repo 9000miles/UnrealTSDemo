@@ -49,6 +49,16 @@ function checkContentAndExtractParentClass(file: string) {
     }
 }
 
+const ignoreFiles = [
+    'AndroidWebBrowserWidget',
+    'DebugCanvas',
+    'MultiBox',
+    'MultiBoxCustomization',
+    'SDockingArea',
+    'SDockingCross',
+    'SDockingSplitter',
+]
+
 // 处理文件并创建新文件
 function processFiles() {
     const hFiles = enumerateHFiles(sourceDir);
@@ -60,11 +70,13 @@ function processFiles() {
         if (!classInfo.isSWidget) return;
 
         const baseName = path.basename(file, '.h');
+        if (ignoreFiles.includes(baseName)) return;
+
         const newFileName = `$${baseName}.cpp`;
         const newFilePath = path.join(targetDir, newFileName);
 
         // 检查目标目录中是否已存在同名文件
-        if (!fs.existsSync(newFilePath)) {
+        if (fs.existsSync(newFilePath)) {
             console.log(`Skip creating because file already exists: ${newFilePath}`);
         } else {
             let codeFile = template;
