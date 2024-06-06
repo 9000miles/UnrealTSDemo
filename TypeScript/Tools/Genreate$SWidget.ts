@@ -53,6 +53,8 @@ function checkContentAndExtractParentClass(file: string) {
 function processFiles() {
     const hFiles = enumerateHFiles(sourceDir);
     const template = getTemplateFile();
+
+    let define_functions: string[] = []
     hFiles.forEach((file) => {
         const classInfo = checkContentAndExtractParentClass(file)
         if (!classInfo.isSWidget) return;
@@ -62,7 +64,7 @@ function processFiles() {
         const newFilePath = path.join(targetDir, newFileName);
 
         // 检查目标目录中是否已存在同名文件
-        if (fs.existsSync(newFilePath)) {
+        if (!fs.existsSync(newFilePath)) {
             console.log(`Skip creating because file already exists: ${newFilePath}`);
         } else {
             let codeFile = template;
@@ -70,6 +72,7 @@ function processFiles() {
             if (classInfo.snippet) {
                 codeFile = codeFile.replaceAll("$__ARGUMENTS__$", classInfo.snippet.args)
                 codeFile = codeFile.replaceAll("$__DTS_ARGS__$", classInfo.snippet.dts)
+                define_functions.push(...classInfo.snippet.def_funcs)
             }
 
             codeFile = codeFile.replaceAll("$WidgetClass$", classInfo.myClass);
@@ -79,6 +82,27 @@ function processFiles() {
             console.log(`Created file: ${newFilePath}`);
         }
     });
+
+    //移除所有为undefined元素
+    define_functions = define_functions.filter(item => item !== undefined);
+    define_functions = define_functions.filter((item, index, array) => array.indexOf(item) === index);
+    define_functions.sort()
+    let func_temp = "";
+    let func_json = {};
+    let func_json_name = "";
+    define_functions.forEach((func) => {
+        const index = func.indexOf("(")
+        const func_name = func.substring(0, index)
+        if (func_name != func_temp) {
+            func_json_name = func_name;
+            func_json[func_json_name] = []
+        }
+        func_json[func_json_name].push(func)
+
+        func_temp = func_name
+    })
+
+    fs.writeFileSync(path.join(targetDir, "DEFINE_FUNCTION.json"), JSON.stringify(func_json, null, 4))
 }
 
 function generateCodeSnippet(inputText) {
@@ -102,7 +126,16 @@ function generateCodeSnippet(inputText) {
         return '';
     }).filter(line => line !== '').join('\n');
 
-    return {args: output1, dts: output2}
+
+    const output3 = slateArgs.map(arg => {
+        const match = arg.match(/SLATE_(\w+)\(([^,]+),\s*([^)]+)\)/);
+        if (match) {
+            const [, type, argType, name] = match;
+            return `DEFINE_FUNCTION_SLATE_${type.trim()}(${argType.trim()}, ${name.trim()}, );`;
+        }
+    })
+
+    return {args: output1, dts: output2, def_funcs: output3}
 }
 
 //$SET_ARGUMENTS$
