@@ -1,7 +1,7 @@
 [submodule "Plugins/UnrealTS"]
 	path = Plugins/UnrealTS
-	url = git@codeup.aliyun.com:6078cd0261a945067837c462/Shared/Plugins/UnrealTS.git
-	branch = master
+	url = https://codeup.aliyun.com/6078cd0261a945067837c462/Shared/Plugins/UnrealTS.git
+	branch = ClassDefinition
 [submodule "Plugins/Puerts"]
 	path = Plugins/Puerts
 	url = https://codeup.aliyun.com/6078cd0261a945067837c462/Shared/Plugins/Puerts.git
