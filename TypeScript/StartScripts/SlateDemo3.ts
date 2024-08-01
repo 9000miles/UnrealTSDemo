@@ -1,12 +1,11 @@
 import {LinearColor} from 'ue';
-import {SButton, SCheckBox, STextBlock, SWidget} from 'cpp';
+import {SButton, SCheckBox, STextBlock} from 'cpp';
 import * as UE from "ue";
-import {TSharedPtr, TSharedRef} from "ue";
 import * as puerts from "puerts";
 import * as cpp from "cpp";
 
 
-const GameInstance: UE.TestPuertsSlateGameInstance = puerts.argv.getByName("GameInstance") as UE.TestPuertsSlateGameInstance
+const GameInstance: UE.SlateTSGameInstance = puerts.argv.getByName("GameInstance") as UE.SlateTSGameInstance
 
 function getContentWidget() {
     console.log("getContentWidget")
