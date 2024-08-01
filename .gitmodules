@@ -1,8 +1,8 @@
 [submodule "Plugins/UnrealTS"]
 	path = Plugins/UnrealTS
 	url = https://codeup.aliyun.com/6078cd0261a945067837c462/Shared/Plugins/UnrealTS.git
-	branch = ClassDefinition
+	branch = for-puerts-1.0.7
 [submodule "Plugins/Puerts"]
 	path = Plugins/Puerts
 	url = https://codeup.aliyun.com/6078cd0261a945067837c462/Shared/Plugins/Puerts.git
-	branch = puerts_demo_slate
+	branch = 1.0.7-NodeJS
