@@ -19,7 +19,7 @@ function Func1() {
             ShadowOffset: {X: 6, Y: 9},
         },
         __filename)
-    GameInstance.SetTestWidget(widget)
+    GameInstance.SetShowWidget(widget)
 
 
     const text = widget.Get().GetText()
@@ -46,7 +46,7 @@ function Func1_1() {
             },
         },
         __filename)
-    GameInstance.SetTestWidget(widget)
+    GameInstance.SetShowWidget(widget)
 
     // widget.Get().SetWrapTextAt(() => {
     //     console.log("xxxx")
@@ -110,7 +110,7 @@ function Func2() {
             ColorAndOpacity: getColor2
         },
         __filename)
-    GameInstance.SetTestWidget(widget)
+    GameInstance.SetShowWidget(widget)
 }
 
 function Func4() {
@@ -122,7 +122,7 @@ function Func4() {
     // widget.Get().SetText("sss");
     widget.Get().SetText(() => "sss");
     widget.Get().SetText(setTextFunc);
-    GameInstance.SetTestWidget(widget)
+    GameInstance.SetShowWidget(widget)
 }
 
 function Func3() {

@@ -26,7 +26,7 @@ function Func1() {
             OnGetMenuContent: getContentWidget
         },
         __filename)
-    GameInstance.SetTestWidget(widget)
+    GameInstance.SetShowWidget(widget)
 }
 
 

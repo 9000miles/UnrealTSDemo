@@ -8,7 +8,7 @@ import { TSharedPtr } from "ue";
 const GameInstance: UE.SlateTSGameInstance = puerts.argv.getByName("GameInstance") as UE.SlateTSGameInstance
 
 
-var func_map = {
+var test_func = {
     测试_构造参数: function Func1() {
         const widget: TSharedPtr<STextBlock> = STextBlock.SNew({
                 Text: "Mowoweij",
@@ -22,7 +22,7 @@ var func_map = {
             __filename)
         const text = widget.Get().GetText()
         console.log(">>>>>>>>>> AAA <<<<<<<<<<", text)
-        GameInstance.SetTestWidget(widget)
+        GameInstance.SetShowWidget(widget)
 
 
     },
@@ -45,7 +45,7 @@ var func_map = {
                 },
             },
             __filename)
-        GameInstance.SetTestWidget(widget)
+        GameInstance.SetShowWidget(widget)
 
         // widget.Get().SetWrapTextAt(() => {
         //     console.log("xxxx")
@@ -108,7 +108,7 @@ var func_map = {
                 ColorAndOpacity: getColor2
             },
             __filename)
-        GameInstance.SetTestWidget(widget)
+        GameInstance.SetShowWidget(widget)
     },
     测试_函数调用: function () {
         function setTextFunc(): string {
@@ -119,7 +119,7 @@ var func_map = {
         widget.Get().SetText("sss");
         widget.Get().SetText(() => "sss");
         widget.Get().SetText(setTextFunc);
-        GameInstance.SetTestWidget(widget)
+        GameInstance.SetShowWidget(widget)
     },
     测试_AssignNew: function () {
         let widgetRef = $ref(STextBlock.MakeShared())
@@ -130,7 +130,7 @@ var func_map = {
         const widgetPtr = $unref(widgetRef)
         const a = widgetPtr.Get().GetText()
         console.log(a)
-        GameInstance.SetTestWidget(widgetPtr)
+        GameInstance.SetShowWidget(widgetPtr)
     },
     类对象实例_绑定Atrribute_成员函数: function () {
         class MyClass {
@@ -149,7 +149,7 @@ var func_map = {
                 const text = widget.Get().GetText();
                 console.log(text)
                 // widget.Get().SetText("sss");
-                GameInstance.SetTestWidget(widget)
+                GameInstance.SetShowWidget(widget)
             }
         }
 
@@ -161,4 +161,4 @@ var func_map = {
 /**
  * ================= 测试 =================
  **/
-func_map["测试_Attribute_不同类型返回值_函数绑定"]()
+test_func["类对象实例_绑定Atrribute_成员函数"]()
