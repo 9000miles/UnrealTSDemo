@@ -161,4 +161,4 @@ var test_func = {
 /**
  * ================= 测试 =================
  **/
-test_func["类对象实例_绑定Atrribute_成员函数"]()
+test_func.类对象实例_绑定Atrribute_成员函数()
